@@ -120,71 +120,83 @@ import { useRef, useState, useEffect } from 'react'
 // export default App
 
 
-const ContadorDeVueltas = () => {
-  const [vuelta, setVuelta] = useState(1)
-  const [vuelta2, setVuelta2] = useState(0)
-  console.log(vuelta)
-  const [tiempoEnSegundos, setTiempoEnSegundos] = useState(0)
-  const [datosUltimaVuelta, setDatosUltimaVuelta] = useState({
-    vuelta: 0,
-    tiempo: 0
-  })
+// const ContadorDeVueltas = () => {
+//   const [vuelta, setVuelta] = useState(1)
+//   const [vuelta2, setVuelta2] = useState(0)
+//   console.log(vuelta)
+//   const [tiempoEnSegundos, setTiempoEnSegundos] = useState(0)
+//   const [datosUltimaVuelta, setDatosUltimaVuelta] = useState({
+//     vuelta: 0,
+//     tiempo: 0
+//   })
 
-  useEffect(() => {
-    document.title = 'Vuelta: ' + vuelta
+//   useEffect(() => {
+//     document.title = 'Vuelta: ' + vuelta
 
-    return () => {
-      document.title = 'Vite + React'
-    }
-  }, [vuelta])
+//     return () => {
+//       document.title = 'Vite + React'
+//     }
+//   }, [vuelta])
 
-  useEffect(() => {
-    setTiempoEnSegundos(0)
-    const intervarlId = setInterval(() => {
-      setTiempoEnSegundos(prev => prev + 1)
-    }, 1000)
+//   useEffect(() => {
+//     setTiempoEnSegundos(0)
+//     const intervarlId = setInterval(() => {
+//       setTiempoEnSegundos(prev => prev + 1)
+//     }, 1000)
 
-    return () => {
-      clearInterval(intervarlId)
-    }
-  }, [vuelta])
+//     return () => {
+//       clearInterval(intervarlId)
+//     }
+//   }, [vuelta])
 
-  // useEffect(() => {
-  //   setVuelta2(vuelta)
-  // }, [vuelta])
+//   // useEffect(() => {
+//   //   setVuelta2(vuelta)
+//   // }, [vuelta])
 
-  const finalizarVuelta = () => {
-    setDatosUltimaVuelta({ vuelta: vuelta, tiempo: tiempoEnSegundos})
-    setVuelta(prev => prev + 1)
-    setVuelta2(vuelta)
+//   const finalizarVuelta = () => {
+//     setDatosUltimaVuelta({ vuelta: vuelta, tiempo: tiempoEnSegundos})
+//     setVuelta(prev => prev + 1)
+//     setVuelta2(vuelta)
 
-  }
+//   }
 
-  return (
-    <div>
-      <h1>Contador de vueltas</h1>
-      <h2>Vuelta actual: {vuelta}</h2>
-      <h2>Vuelta2 actual: {vuelta2}</h2>
-      <h2>Segundos: {tiempoEnSegundos}seg</h2>
-      <button onClick={finalizarVuelta}>Finalizar Vuelta</button>
-      <h2>Datos ultima vuelta</h2>
-      <h3>Nro Vuelta: {datosUltimaVuelta.vuelta}</h3>
-      <h3>Tiempo: {datosUltimaVuelta.tiempo}seg</h3>
-    </div>
-  )
-}
+//   return (
+//     <div>
+//       <h1>Contador de vueltas</h1>
+//       <h2>Vuelta actual: {vuelta}</h2>
+//       <h2>Vuelta2 actual: {vuelta2}</h2>
+//       <h2>Segundos: {tiempoEnSegundos}seg</h2>
+//       <button onClick={finalizarVuelta}>Finalizar Vuelta</button>
+//       <h2>Datos ultima vuelta</h2>
+//       <h3>Nro Vuelta: {datosUltimaVuelta.vuelta}</h3>
+//       <h3>Tiempo: {datosUltimaVuelta.tiempo}seg</h3>
+//     </div>
+//   )
+// }
 
 
 
+
+
+// const App = () => {
+//   const [show, setShow] = useState(false)
+
+//   return (
+//     <>
+//       <button onClick={() => setShow(show => !show)}>Mostrar/No Mostrar</button>
+//       {show ? <ContadorDeVueltas /> : null}
+//     </>
+//   )
+// }
+
+// export default App
 
 
 const App = () => {
-  const [show, setShow] = useState(false)
-
   return (
     <>
-      <button onClick={() => setShow(show => !show)}>Mostrar/No Mostrar</button>
-      {show ? <ContadorDeVueltas /> : null}
+      <Navbar />
+      <ItemListContainer />
     </>
   )
 }
