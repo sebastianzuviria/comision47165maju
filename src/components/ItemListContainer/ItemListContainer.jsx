@@ -1,33 +1,36 @@
-import classes from './ItemListContainer.module.css'
 import { useState, useEffect } from 'react'
-import { getProducts } from '../../asyncMock'
+import { getProducts, getProductsByCategory } from '../../asyncMock'
 import ItemList from '../ItemList/ItemList'
+import { useParams } from 'react-router-dom'
 
-const ItemListContainer = () => {
+const ItemListContainer = ({ greeting }) => {
     const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    const { categoryId } = useParams()
 
     useEffect(() => {
-        getProducts().then(result => {
-            console.log(result)
+        setLoading(true)
+
+        const asyncFunction = categoryId ? getProductsByCategory : getProducts
+
+        asyncFunction(categoryId).then(result => {
             setProducts(result)
+        }).catch(error => {
+            console.log(error)
+        }).finally(() => {
+            setLoading(false)
         })
-    }, [])
+    }, [categoryId])
 
-    console.log(products)
-
-    // const productsComponents = products.map(product => {
-    //     return (
-    //         <div key={product.id}>
-    //             <h3>{product.name}</h3>
-    //             <img src={product.img} style={{ width: 100}}/>
-    //             <p>Precio: u$s {product.price}</p>
-    //         </div>
-    //     )
-    // })
+    if(loading) {
+        return <h1>Cargando productos...</h1>
+    }
 
     return (
-        <main>
-            <ItemList products={products}/>
+        <main style={{ background: 'orange'}}>
+            <h1>{greeting}</h1>
+            {products.length > 0 ? <ItemList products={products}/> : <h1>No hay productos disponibles</h1> }
         </main>
     )
 }

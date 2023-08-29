@@ -1,4 +1,4 @@
-import cart from './assets/react.svg'
+import cart from './assets/cart.svg'
 
 const CartWidget = () => {
     return (
