@@ -28,7 +28,7 @@ const ItemListContainer = ({ greeting }) => {
     }
 
     return (
-        <main style={{ background: 'orange'}}>
+        <main style={{ background: 'orange'}} onClick={() => console.log('itemlistcontainer')}>
             <h1>{greeting}</h1>
             {products.length > 0 ? <ItemList products={products}/> : <h1>No hay productos disponibles</h1> }
         </main>

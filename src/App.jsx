@@ -40,3 +40,20 @@ const App = () => {
 }
 
 export default App
+
+// import Button from './components/Button/Button'
+// import Animation from './components/Animation/Animation'
+
+// const App = () => {
+//   const [show, setShow] = useState(false)
+
+//   return (
+//     <>
+//       {/* <button onClick={() => setShow(prev => !prev)}>mostrar/ocultar</button>
+//       {show && <Button />} */}
+//       <Animation />
+//     </>
+//   )
+// }
+
+// export default App
