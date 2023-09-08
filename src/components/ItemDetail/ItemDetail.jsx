@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useCart } from '../../context/CartContext'
+import { useNotification } from '../../notification/NotificationService'
 
 const InputCount = ({ onAdd, stock, initial }) => {
     const [count, setCount] = useState(initial)
@@ -50,12 +51,14 @@ const ItemDetail = ({ id, name, category, img, price, stock, description }) => {
     const ItemCount = inputType === 'input' ? InputCount : ButtonCount
 
     const { addItem } = useCart()
+    const { setNotification } = useNotification()
 
     const handleOnAdd = (quantity) => {
         const objProductToAdd = {
             id, name, price, quantity
         }
         addItem(objProductToAdd)
+        setNotification('error', `Se agregaron correctamente ${quantity} ${name} al carrito`)
         console.log('agregue al carrito: ', quantity)
 
         setQuantity(quantity)
