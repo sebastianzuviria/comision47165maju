@@ -1,7 +1,10 @@
 import { useState, useEffect, memo } from 'react'
-import { getProducts, getProductsByCategory } from '../../asyncMock'
+// import { getProducts, getProductsByCategory } from '../../asyncMock'
 import ItemList from '../ItemList/ItemList'
 import { useParams } from 'react-router-dom'
+import { db } from '../../services/firebase/firebaseConfig'
+
+import { getDocs, collection, query, where, limit } from 'firebase/firestore'
 
 const ItemListMemo = memo(ItemList)
 
@@ -16,15 +19,36 @@ const ItemListContainer = ({ greeting }) => {
     useEffect(() => {
         setLoading(true)
 
-        const asyncFunction = categoryId ? getProductsByCategory : getProducts
+        const productsRef = !categoryId 
+            ? collection(db, 'products')
+            : query(collection(db, 'products'), where('category', '==', categoryId), limit(10))
 
-        asyncFunction(categoryId).then(result => {
-            setProducts(result)
-        }).catch(error => {
-            console.log(error)
-        }).finally(() => {
-            setLoading(false)
-        })
+        getDocs(productsRef)
+            .then(querySnapshot => {
+                const productsAdapted = querySnapshot.docs.map(doc => {
+                    const fields = doc.data()
+                    return { id: doc.id, ...fields }
+                })
+
+                setProducts(productsAdapted)
+            })
+            .catch(error => {
+                console.error(error)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+
+
+        // const asyncFunction = categoryId ? getProductsByCategory : getProducts
+
+        // asyncFunction(categoryId).then(result => {
+        //     setProducts(result)
+        // }).catch(error => {
+        //     console.log(error)
+        // }).finally(() => {
+        //     setLoading(false)
+        // })
     }, [categoryId])
 
     useEffect(() => {
