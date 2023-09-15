@@ -12,8 +12,6 @@ const ItemListContainer = ({ greeting }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
 
-    const [title, setTitle] = useState('Primer titulo')
-
     const { categoryId } = useParams()
 
     useEffect(() => {
@@ -51,11 +49,6 @@ const ItemListContainer = ({ greeting }) => {
         // })
     }, [categoryId])
 
-    useEffect(() => {
-        setTimeout(() => {
-            setTitle('Segundo titulo')
-        }, 3000)
-    }, [])
 
     if(loading) {
         return <h1>Cargando productos...</h1>
@@ -63,7 +56,6 @@ const ItemListContainer = ({ greeting }) => {
 
     return (
         <main style={{ background: 'orange'}} onClick={() => console.log('itemlistcontainer')}>
-            <h1>{title}</h1>
             <h1>{greeting}</h1>
             {products.length > 0 ? <ItemListMemo products={products}/> : <h1>No hay productos disponibles</h1> }
         </main>
