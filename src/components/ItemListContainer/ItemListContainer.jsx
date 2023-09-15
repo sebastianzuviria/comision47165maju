@@ -21,7 +21,7 @@ const ItemListContainer = ({ greeting }) => {
 
         const productsRef = !categoryId 
             ? collection(db, 'products')
-            : query(collection(db, 'products'), where('category', '==', categoryId), limit(10))
+            : query(collection(db, 'products'), where('category', '==', categoryId))
 
         getDocs(productsRef)
             .then(querySnapshot => {
