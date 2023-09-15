@@ -1,28 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import Navbar from './components/Navbar/Navbar'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { CartProvider } from './context/CartContext'
+import { NotificationProvider } from './notification/NotificationService'
+import ItemListContainer from './components/ItemListContainer/ItemListContainer'
+import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
+import Cart from './components/Cart/Cart'
+import Checkout from './components/Checkout/Checkout'
 
+const App = () => {
   return (
     <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Comision 47165</h1>
-      <h2>Clase de Instalacion y configuracion del entorno</h2>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <NotificationProvider>
+        <CartProvider>
+          <BrowserRouter>
+              <Navbar />
+              <Routes>
+              <Route path='/' element={<ItemListContainer greeting={'Listado de todos los productos'}/> }/>
+              <Route path='/category/:categoryId' element={<ItemListContainer greeting={'Productos por categoria'}/>} />
+              <Route path='/detail/:productId' element={<ItemDetailContainer />} />
+              <Route path='/cart' element={<Cart />} />
+              <Route path='/checkout' element={<Checkout />} />
+              <Route path='*' element={<h1>Error 404 Not Found</h1>} />
+              </Routes>
+          </BrowserRouter>
+        </CartProvider>
+      </NotificationProvider>
     </>
   )
 }
