@@ -8,7 +8,7 @@ export const CartProvider = ({ children }) => {
   
     const addItem = (productToAdd) => {
       if(!isInCart(productToAdd.id)) {
-        setCart(prev => [...prev, productToAdd])
+        addToCartState(productToAdd)
       } else {
         console.log('hay que actualizar la cantidad')
         // const updatedCart = cart.map()
@@ -16,6 +16,8 @@ export const CartProvider = ({ children }) => {
       }
     } 
   
+    const addToCartState = (productToAdd) => setCart(prev => [...prev, productToAdd])
+
     const isInCart = (id) => {
       return cart.some(prod => prod.id === id)
     }
