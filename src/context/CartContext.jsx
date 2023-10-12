@@ -1,12 +1,13 @@
-import { useState, createContext, useContext } from 'react'
+import { useState, createContext, useContext, useCallback, useMemo } from 'react'
 
 const CartContext = createContext('Este valor lo ven aquellos que esten fuera del provider')
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([])
     console.log(cart)
-  
-    const addItem = (productToAdd) => {
+    console.log('re render')
+
+    const addItem = useCallback((productToAdd) => {
       if(!isInCart(productToAdd.id)) {
         addToCartState(productToAdd)
       } else {
@@ -14,15 +15,15 @@ export const CartProvider = ({ children }) => {
         // const updatedCart = cart.map()
         // setCart(updatedCart)
       }
-    } 
+    }, [])
   
-    const addToCartState = (productToAdd) => setCart(prev => [...prev, productToAdd])
+    const addToCartState = useCallback((productToAdd) => setCart(prev => [...prev, productToAdd]), [])
 
-    const isInCart = (id) => {
+    const isInCart = useCallback((id) => {
       return cart.some(prod => prod.id === id)
-    }
+    }, [cart])
 
-    const getTotalQuantity = () => {
+    const getTotalQuantity = useCallback(() => {
         let totalQuantity = 0
 
         cart.forEach(prod => {
@@ -30,11 +31,11 @@ export const CartProvider = ({ children }) => {
         })
 
         return totalQuantity
-    }
+    }, [cart])
 
-    const totalQuantity = getTotalQuantity()
+    const totalQuantity = useMemo(() => getTotalQuantity(), [getTotalQuantity])
 
-    const getTotal = () => {
+    const getTotal = useCallback(() => {
       let total = 0
 
       cart.forEach(prod => {
@@ -42,20 +43,24 @@ export const CartProvider = ({ children }) => {
       })
 
       return total
-    }
+    }, [cart])
 
-    const total = getTotal()
+    const total = useMemo(() => getTotal(), [getTotal])
 
-    const removeItem = (id) => {
+    const removeItem = useCallback((id) => {
         setCart(prev => prev.filter(prod => prod.id !== id))
-    }
+    }, [])
 
-    const clearCart = () => {
+    const clearCart = useCallback(() => {
         setCart([])
-    }
+    }, [])
+
+    const contextValue = useMemo(() => ({
+      cart, addItem, totalQuantity, removeItem, clearCart, total
+    }), [ cart, addItem, totalQuantity, removeItem, clearCart, total ])
 
     return (
-        <CartContext.Provider value={{ cart, addItem, totalQuantity, removeItem, clearCart, total }}>
+        <CartContext.Provider value={contextValue}>
             { children }
         </CartContext.Provider>
     )
