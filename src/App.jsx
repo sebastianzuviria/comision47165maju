@@ -17,16 +17,14 @@ const App = () => {
           <CartProvider>
             <BrowserRouter>
                 <Navbar />
-                <Suspense fallback={<h1>Loading...</h1>}>
                   <Routes>
                     <Route path='/' element={<ItemListContainer greeting={'Listado de todos los productos'}/> }/>
                     <Route path='/category/:categoryId' element={<ItemListContainer greeting={'Productos por categoria'}/>} />
-                    <Route path='/detail/:productId' element={<ItemDetailContainer />} />
-                    <Route path='/cart' element={<Cart />} />
-                    <Route path='/checkout' element={<Checkout />} />
+                    <Route path='/detail/:productId' element={<Suspense fallback={<h1>Loading...</h1>}><ItemDetailContainer /></Suspense>} />
+                    <Route path='/cart' element={<Suspense fallback={<h1>Loading...</h1>}><Cart /></Suspense>} />
+                    <Route path='/checkout' element={<Suspense fallback={<h1>Loading...</h1>}><Checkout /></Suspense>} />
                     <Route path='*' element={<h1>Error 404 Not Found</h1>} />
                   </Routes>
-                </Suspense>
             </BrowserRouter>
           </CartProvider>
         </NotificationProvider>
