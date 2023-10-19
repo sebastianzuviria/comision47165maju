@@ -7,9 +7,9 @@ import ItemListContainer  from './components/ItemListContainer/ItemListContainer
 const App = () => {
   return (
     <>
-      {/* <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={<h1>Loading...</h1>}>
         <Navbar />
-      </Suspense> */}
+      </Suspense>
       <ItemListContainer greeting={'Listado de todos los productos'}/>
     </>
   )
