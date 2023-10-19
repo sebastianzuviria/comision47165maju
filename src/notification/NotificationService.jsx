@@ -7,7 +7,7 @@ const Notification = ({ data }) => {
       right: 30,
       backgroundColor: data.type === 'success' ? 'green' : 'red',
       color: 'white',
-      padding: '10px 20px 10px 20px',
+      padding: '11px 20px 10px 20px',
       fontSize: 20,
       borderRadius: 10
     }
