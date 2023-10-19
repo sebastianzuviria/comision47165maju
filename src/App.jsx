@@ -9,8 +9,8 @@ const App = () => {
     <>
       <Suspense fallback={<h1>Loading...</h1>}>
         <Navbar />
-        <ItemListContainer greeting={'Listado de todos los productos'}/>
-      </ Suspense>
+      </Suspense>
+      <ItemListContainer greeting={'Listado de todos los productos'}/>
     </>
   )
 }
