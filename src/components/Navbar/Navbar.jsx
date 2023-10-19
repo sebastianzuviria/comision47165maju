@@ -26,14 +26,14 @@ const Navbar = () => {
     return (
         <nav className={classes.container}>
             <h1>Ecommerce</h1>
-            <section>
+            {/* <section>
                 {
                     categories.map(cat => (
                         <button key={cat.id} className={ classes.inactive}>{cat.name}</button>
                     ))
                 }
-            </section>
-            <CartWidget />
+            </section> */}
+            {/* <CartWidget /> */}
         </nav>
     )
 } 

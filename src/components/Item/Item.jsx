@@ -1,7 +1,4 @@
 const Item = ({ id, name, img, price }) => {
-
-
-    // const navigate = useNavigate()
     const handleClick = (e) => {
         e.stopPropagation()
         console.log('item')
