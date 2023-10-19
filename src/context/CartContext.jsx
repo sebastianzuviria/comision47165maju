@@ -10,11 +10,7 @@ export const CartProvider = ({ children }) => {
     const addItem = useCallback((productToAdd) => {
       if(!isInCart(productToAdd.id)) {
         addToCartState(productToAdd)
-      } else {
-        console.log('hay que actualizar la cantidad')
-        // const updatedCart = cart.map()
-        // setCart(updatedCart)
-      }
+      } 
     }, [])
   
     const addToCartState = useCallback((productToAdd) => setCart(prev => [...prev, productToAdd]), [])

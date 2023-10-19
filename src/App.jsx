@@ -5,7 +5,7 @@ import { CartProvider } from './context/CartContext'
 import { NotificationProvider } from './notification/NotificationService'
 
 import Navbar from './components/Navbar/Navbar'
-const ItemListContainer = lazy(() => import('./components/ItemListContainer/ItemListContainer'))
+import ItemListContainer  from './components/ItemListContainer/ItemListContainer'
 const ItemDetailContainer = lazy(() => import('./components/ItemDetailContainer/ItemDetailContainer'))
 const Cart = lazy(() => import('./components/Cart/Cart'))
 const Checkout = lazy(() => import('./components/Checkout/Checkout'))
